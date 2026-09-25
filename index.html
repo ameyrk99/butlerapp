@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>butler — catalogue via dictation</title>
+<meta name="description" content="Tell it what you played, read or watched. It files the rest as plain Markdown in your Obsidian vault.">
+
+<meta property="og:title" content="butler">
+<meta property="og:description" content="Tell it what you played, read or watched. It files the rest.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/app.png">
+
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/zephyr/bootstrap.min.css">
+
+<style>
+  :root {
+    --app-game:  #12a150;
+    --app-book:  #c20e4d;
+    --app-film:  #006fee;
+    --bs-body-color: #1f2430;
+  }
+
+  body { -webkit-font-smoothing: antialiased; }
+
+  .wrap { max-width: 1200px; }
+
+  h1.brand {
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    font-size: clamp(2.75rem, 7vw, 4rem);
+    margin-bottom: .25rem;
+  }
+
+  .muted, .feature p { color: #545d6b; }
+  .tagline { font-size: 1.2rem; color: #545d6b; max-width: 34ch; }
+
+  .say {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    border: 1px solid rgba(0,0,0,.09);
+    border-radius: 1rem;
+    padding: .7rem .95rem;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(16,24,40,.04);
+    line-height: 1.35;
+    font-size: .95rem;
+  }
+  .say + .say { margin-top: .5rem; }
+  .say svg { flex: 0 0 auto; width: 18px; height: 18px; }
+  .say--game { border-color: rgba(18,161,80,.35); }
+  .say--game svg { color: var(--app-game); }
+  .say--book { border-color: rgba(194,14,77,.30); }
+  .say--book svg { color: var(--app-book); }
+  .say--film { border-color: rgba(0,111,238,.30); }
+  .say--film svg { color: var(--app-film); }
+  .say .caret {
+    display: inline-block; width: 1.5px; height: 1.05em;
+    background: var(--app-game); margin-left: 1px;
+    vertical-align: -2px; animation: blink 1.1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .feature { margin-bottom: 1.35rem; }
+  .feature h3 { font-size: 1rem; font-weight: 600; margin-bottom: .2rem; }
+  .feature p  { margin-bottom: 0; }
+
+  .key {
+    display: inline-block; min-width: 1.5rem; text-align: center;
+    border: 1px solid rgba(0,0,0,.12); border-radius: .4rem;
+    padding: 0 .35rem; font-weight: 600; background: #fff;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  .shot {
+    width: 100%; height: auto; display: block;
+    border: 1px solid rgba(0,0,0,.09);
+    border-radius: 1.1rem;
+    box-shadow: 0 18px 40px -22px rgba(16,24,40,.35);
+    background: #fbfbfd;
+  }
+
+  hr.rule { margin: 4.5rem 0; border-top: 1px solid rgba(0,0,0,.09); opacity: 1; }
+
+  footer { color: #6b7280; font-size: .9rem; }
+  footer a { color: #6b7280; text-decoration: none; }
+  footer a:hover { color: #1f2430; text-decoration: underline; }
+
+  @media (max-width: 991.98px) {
+    .hero-shot { margin-top: 2.5rem; }
+    .tagline { max-width: none; }
+  }
+</style>
+</head>
+
+<body class="bg-body-tertiary">
+<main class="wrap container py-5 py-lg-6" style="padding-top:4rem;padding-bottom:4rem">
+
+  <!-- ─────────────────────────  the app  ───────────────────────── -->
+  <section class="row align-items-center g-5">
+    <div class="col-lg-5">
+      <h1 class="brand">butler</h1>
+      <p class="tagline mb-3">Tell it what is played, read or watched. It files the rest.</p>
+      <p class="muted mb-4">A personal catalogue for games, books and film as markdown files, maintained via ordinary sentences.</p>
+
+      <div class="feature">
+        <h3>Just say it</h3>
+        <p class="mb-3">No forms, no fields, and no properties tables. Write the sentence and let the butler figure out what it meant.</p>
+
+        <div class="say say--book">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/>
+          </svg>
+          <span>Inherent Vice tag audiobook #bookclub-iykyk</span>
+        </div>
+
+        <div class="say say--film">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="3" width="20" height="18" rx="2"/>
+            <path d="M7 3v18M17 3v18M2 9h5M2 15h5M17 9h5M17 15h5"/>
+          </svg>
+          <span>Watched Whiplash directed by Damien Chazelle yesterday, released 2014</span>
+        </div>
+      </div>
+
+      <div class="feature">
+        <h3>Live preview</h3>
+        <p class="mb-3">Shows a live preview of the result as the sentence(s) is typed.</p>
+
+        <div class="say say--game">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 12h4M8 10v4M15 13h.01M17.5 11h.01"/>
+            <path d="M17.32 5H6.68a4 4 0 0 0-3.96 3.4l-1.2 7.2A3 3 0 0 0 4.48 19c.9 0 1.74-.4 2.3-1.1L8.5 16h7l1.72 1.9c.56.7 1.4 1.1 2.3 1.1a3 3 0 0 0 2.96-3.4l-1.2-7.2A4 4 0 0 0 17.32 5Z"/>
+          </svg>
+          <span>Started playing Resident Evil Requiem made by Capcom on Sept 22<span class="caret"></span></span>
+        </div>
+      </div>
+
+      <div class="feature mt-4">
+        <h3>Shortcuts</h3>
+        <p><span class="key">#</span> for a tag,
+           <span class="key">!</span> for a genre,
+           <span class="key">@</span> for the shelf.</p>
+      </div>
+
+      <div class="feature">
+        <h3>Loose files</h3>
+        <p>Every entry is a plain Markdown file that can be opened, edited or taken somewhere else. Nothing is locked in a database.</p>
+
+        <p>Works perfectly with Obsidian's Bases, Graph View, and more.</p>
+      </div>
+
+      <div class="feature">
+        <h3>Importing data</h3>
+        <p>Easily imports all data from a GoodReads or Letterboxd export including ratings, dates, reviews and all.</p>
+      </div>
+    </div>
+
+    <div class="col-lg-7 hero-shot">
+      <img class="shot" src="assets/app.png" width="1421" height="1844"
+           alt="butler turning a typed sentence into a catalogued entry">
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ─────────────────────────  the numbers  ───────────────────────── -->
+  <section class="row align-items-center g-5">
+    <div class="col-lg-8 order-lg-1 order-2">
+      <img class="shot" src="assets/stats.png" width="1783" height="588"
+           alt="Three charts showing games, books and films broken down by status">
+    </div>
+
+    <div class="col-lg-4 order-lg-2 order-1">
+      <h2 class="h3 fw-semibold mb-3">The shape of the library</h2>
+      <p class="muted mb-0">All the cataloged
+         <span style="color:var(--app-game);font-weight:600">Games</span>,
+         <span style="color:var(--app-book);font-weight:600">Books</span> and
+         <span style="color:var(--app-film);font-weight:600">Films</span> at a glace.</p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <footer class="d-flex flex-wrap justify-content-between gap-2">
+    <span>butler — a personal project by Amey Khairnar</span>
+    <a href="https://ameyrk.me">ameyrk.me</a>
+  </footer>
+
+</main>
+</body>
+</html>
